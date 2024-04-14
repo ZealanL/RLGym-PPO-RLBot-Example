@@ -12,7 +12,7 @@ class RLGymPPOBot(BaseAgent):
 		super().__init__(name, team, index)
 		self.obs_builder = YourOBS()
 		self.agent = Agent()
-		self.tick_skip = 8
+		self.tick_skip = your_tick_skip_here
 		self.game_state: GameState = None
 		self.controls = None
 		self.action = None

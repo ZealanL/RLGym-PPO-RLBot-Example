@@ -11,6 +11,12 @@ from your_act import SaturnAction
 import your_obs
 from discrete_policy import DiscreteFF
 
+# You can get the OBS size from the rlgym-ppo console print-outs when you start your bot
+OBS_SIZE = your_obs_size_here
+
+# If you haven't set these, they are [256, 256, 256] by default
+POLICY_LAYER_SIZES = [your, layer, sizes, here]
+
 class Agent:
 	def __init__(self):
 		self.action_parser = SaturnAction()
@@ -18,7 +24,7 @@ class Agent:
 		cur_dir = os.path.dirname(os.path.realpath(__file__))
 		
 		device = torch.device("cpu")
-		self.policy = DiscreteFF(113, self.num_actions, [2048, 1024, 1024, 1024], device)
+		self.policy = DiscreteFF(OBS_SIZE, self.num_actions, POLICY_LAYER_SIZES, device)
 		self.policy.load_state_dict(torch.load(os.path.join(cur_dir, "PPO_POLICY.pt"), map_location=device))
 		torch.set_num_threads(1)
 
