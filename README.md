@@ -6,5 +6,5 @@ An example implementation of a [RLBot](https://rlbot.org/) agent for a trained [
  - Add your bot's OBS in `your_obs.py`
  - Add your bot's action parser in `your_act.py`
  - Set your bot's OBS size and layer sizes in `agent.py`
- - Add your bot's trained `PPO_POLICY.py` into the main directory
+ - Add your bot's trained `PPO_POLICY.pt` into the main directory
  - Change your bot's nametag and description in `bot.cfg`
