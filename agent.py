@@ -7,7 +7,7 @@ import torch
 import torch.nn.functional as F
 from torch.distributions import Categorical
 
-from your_act import SaturnAction
+from your_act import YourActionParser
 import your_obs
 from discrete_policy import DiscreteFF
 
@@ -19,7 +19,7 @@ POLICY_LAYER_SIZES = [your, layer, sizes, here]
 
 class Agent:
 	def __init__(self):
-		self.action_parser = SaturnAction()
+		self.action_parser = YourActionParser()
 		self.num_actions = len(self.action_parser._lookup_table)
 		cur_dir = os.path.dirname(os.path.realpath(__file__))
 		
