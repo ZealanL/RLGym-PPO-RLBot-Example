@@ -32,4 +32,12 @@ class Agent:
 		with torch.no_grad():
 			action_idx, probs = self.policy.get_action(state, True)
 		
-		return self.action_parser.parse_action([action_idx], None)[0]
+		action = np.array(self.action_parser.parse_actions([action_idx], None))
+		if len(action.shape) == 2:
+			if action.shape[0] == 1:
+				action = action[0]
+		
+		if len(action.shape) != 1:
+			raise Exception("Invalid action:", action)
+		
+		return action
