@@ -56,7 +56,39 @@ friends.
 
 ---
 
-## 5. Customising behaviour
+## 5. Running inside RLGym
+
+The repository ships with a RocketSim-based harness so you can evaluate Phoenix
+inside the latest RLGym stack.
+
+1. Install the dependencies listed in `requirements.txt` (`pip install -r requirements.txt`).
+2. Launch a sample simulation loop:
+
+   ```bash
+   python -m phoenix_rlgym
+   ```
+
+   The script boots a 1v1 RocketSim match, feeds the Phoenix heuristics through
+   the direct action parser, and closes cleanly after a single round or when the
+   timeout (120 in-game seconds) is reached.
+
+3. For custom integrations import the helpers directly:
+
+   ```python
+   from phoenix_rlgym import make_gym_environment
+
+   env, controller = make_gym_environment(tick_skip=8)
+   obs = env.reset()
+   controller.handle_reset(env.state)
+   actions = controller.build_action_dict(env.state)
+   obs, rewards, done, truncated = env.step(actions)
+   ```
+
+   `PhoenixGymController` converts RLGym `GameState` objects into the internal
+   `GameState` mirrors used by the heuristics so both the GUI and gym paths share
+   identical behaviour.
+
+## 6. Customising behaviour
 
 * **Aggression tweaks** – edit `agent.py` and adjust the constants in
   `_should_fast_aerial`, `_should_power_shot`, or `_choose_target` to suit your
@@ -71,7 +103,7 @@ through RLBotGUI without training a neural network.
 
 ---
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 * **Bot does nothing** – ensure Rocket League is capped at 120/240/360 FPS as
   recommended by RLBot. Check the RLBot console for Python errors.
