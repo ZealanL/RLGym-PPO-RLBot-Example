@@ -1,6 +1,15 @@
-# Runtime dependencies for RLBotGUI
-rlbot==1.67.7
-numpy==1.23.5
+# Runtime dependencies for RLBotGUI and Scratch interface compatibility
+rlbot==1.*
+numpy==1.26.4
+websockets>=12.0
+selenium>=4.24
+webdriver-manager>=4.0.2
+
+# RLGym support (RocketSim engine + helpers)
+rlgym==2.0.1
+rlgym-tools==2.3.12
+rlgym-rocket-league[sim]==2.0.1
+gymnasium>=0.29,<1.0
 
 # Quality-of-life tools installed alongside the bot environment
 pip
