@@ -1,6 +1,6 @@
-# Phoenix Rocket League Bot
+# WinYour1s Rocket League Bot
 
-Phoenix is a fresh take on your Rocket League automation setup. The bot relies
+WinYour1s is a fresh take on your Rocket League automation setup. The bot relies
 on a tuned set of heuristics and scripted mechanics (fast aerials, half flips,
 panic clears) so the car always has something purposeful to do on the pitch.
 The behaviour is intentionally lightweight and ships without any external
@@ -32,7 +32,7 @@ stack plus NumPy.
 
 | Item | Description |
 | --- | --- |
-| `bot.cfg` | RLBot configuration pointing to the Phoenix bot entry point. |
+| `bot.cfg` | RLBot configuration pointing to the WinYour1s bot entry point. |
 | `bot.py` | RLBot agent wiring which feeds game state into the heuristic agent. |
 | `agent.py` | Core decision logic blending heuristics with scripted mechanics. |
 | `mechanics/` | Macro actions (fast aerial, half flip, etc.) and their supervisor. |
@@ -49,33 +49,33 @@ easy to reason about.
 1. Open **RLBotGUI** and choose **Add > Existing Bot**.
 2. Select the `bot.cfg` file located next to this README.
 3. Allow RLBotGUI to install the listed dependencies (RLBot + NumPy).
-4. Click **Launch** and start a match. Phoenix will take the field immediately.
+4. Click **Launch** and start a match. WinYour1s will take the field immediately.
 
-You can clone the folder to field multiple bots or to play against Phoenix with
+You can clone the folder to field multiple bots or to play against WinYour1s with
 friends.
 
 ---
 
 ## 5. Running inside RLGym
 
-The repository ships with a RocketSim-based harness so you can evaluate Phoenix
+The repository ships with a RocketSim-based harness so you can evaluate WinYour1s
 inside the latest RLGym stack.
 
 1. Install the dependencies listed in `requirements.txt` (`pip install -r requirements.txt`).
 2. Launch a sample simulation loop:
 
    ```bash
-   python -m phoenix_rlgym
+   python -m winyour1s_rlgym
    ```
 
-   The script boots a 1v1 RocketSim match, feeds the Phoenix heuristics through
+   The script boots a 1v1 RocketSim match, feeds the WinYour1s heuristics through
    the direct action parser, and closes cleanly after a single round or when the
    timeout (120 in-game seconds) is reached.
 
 3. For custom integrations import the helpers directly:
 
    ```python
-   from phoenix_rlgym import make_gym_environment
+   from winyour1s_rlgym import make_gym_environment
 
    env, controller = make_gym_environment(tick_skip=8)
    obs = env.reset()
@@ -84,7 +84,7 @@ inside the latest RLGym stack.
    obs, rewards, done, truncated = env.step(actions)
    ```
 
-   `PhoenixGymController` converts RLGym `GameState` objects into the internal
+   `WinYour1sGymController` converts RLGym `GameState` objects into the internal
    `GameState` mirrors used by the heuristics so both the GUI and gym paths share
    identical behaviour.
 
@@ -110,9 +110,9 @@ through RLBotGUI without training a neural network.
 * **Over-aggressive aerials** – lower the boost threshold in
   `_should_fast_aerial` inside `agent.py`.
 * **Rotation feels off** – tweak the shadowing distance in `_choose_target` to
-  make Phoenix fall back sooner or stay upfield longer.
+  make WinYour1s fall back sooner or stay upfield longer.
 
 ---
 
-Phoenix provides a reliable baseline opponent you can iterate on. Have fun in
+WinYour1s provides a reliable baseline opponent you can iterate on. Have fun in
 the arena!

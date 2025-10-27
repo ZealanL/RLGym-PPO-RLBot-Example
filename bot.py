@@ -11,7 +11,7 @@ from util.game_state import GameState
 from your_act import ACTION_SIZE
 
 
-class PhoenixBot(BaseAgent):
+class WinYour1sBot(BaseAgent):
     """Heuristic Rocket League bot with scripted mechanics."""
 
     def __init__(self, name: str, team: int, index: int):
@@ -30,7 +30,7 @@ class PhoenixBot(BaseAgent):
         self.controls = SimpleControllerState()
         self.prev_time = 0.0
         print("====================================")
-        print("Phoenix Bot ready - Index:", self.index)
+        print("WinYour1s ready - Index:", self.index)
         print("Ensure your Rocket League FPS is 120, 240, or 360 for smooth control.")
         print("====================================")
 
@@ -92,4 +92,4 @@ class PhoenixBot(BaseAgent):
 
 
 # RLBot expects a ``Bot`` class at module scope.
-Bot = PhoenixBot
+Bot = WinYour1sBot

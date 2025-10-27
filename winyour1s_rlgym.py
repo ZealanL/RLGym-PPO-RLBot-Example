@@ -1,4 +1,4 @@
-"""RLGym compatibility helpers for the Phoenix heuristic bot."""
+"""RLGym compatibility helpers for the WinYour1s heuristic bot."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ from rlgym.rocket_league.state_mutators.mutator_sequence import MutatorSequence
 from rlgym.rocket_league.sim.rocketsim_engine import RocketSimEngine
 
 
-class PhoenixObsBuilder(ObsBuilder[AgentID, np.ndarray, RLGymGameState, gym.spaces.Box]):
+class WinYour1sObsBuilder(ObsBuilder[AgentID, np.ndarray, RLGymGameState, gym.spaces.Box]):
     """Minimal observation builder used purely to satisfy RLGym requirements."""
 
     def __init__(self) -> None:
@@ -46,7 +46,7 @@ class PhoenixObsBuilder(ObsBuilder[AgentID, np.ndarray, RLGymGameState, gym.spac
         return {agent: self._obs.copy() for agent in agents}
 
 
-class PhoenixZeroReward(RewardFunction[AgentID, RLGymGameState, float]):
+class WinYour1sZeroReward(RewardFunction[AgentID, RLGymGameState, float]):
     """Reward function that always returns zero (we are not training)."""
 
     def reset(self, agents: List[AgentID], initial_state: RLGymGameState, shared_info: Dict[str, np.ndarray]) -> None:
@@ -63,8 +63,10 @@ class PhoenixZeroReward(RewardFunction[AgentID, RLGymGameState, float]):
         return {agent: 0.0 for agent in agents}
 
 
-class PhoenixDirectActionParser(ActionParser[AgentID, np.ndarray, np.ndarray, RLGymGameState, gym.spaces.Box]):
-    """Pass-through parser that accepts Phoenix controller arrays."""
+class WinYour1sDirectActionParser(
+    ActionParser[AgentID, np.ndarray, np.ndarray, RLGymGameState, gym.spaces.Box]
+):
+    """Pass-through parser that accepts WinYour1s controller arrays."""
 
     def __init__(self) -> None:
         self._low = np.array([-1.0, -1.0, -1.0, -1.0, -1.0, 0.0, 0.0, 0.0], dtype=np.float32)
@@ -98,8 +100,8 @@ class PhoenixDirectActionParser(ActionParser[AgentID, np.ndarray, np.ndarray, RL
         return parsed
 
 
-class PhoenixGymController:
-    """Bridges Phoenix heuristics to RLGym's RocketSim engine."""
+class WinYour1sGymController:
+    """Bridges WinYour1s heuristics to RLGym's RocketSim engine."""
 
     def __init__(self, tick_skip: int = 8) -> None:
         self.tick_skip = max(int(tick_skip), 1)
@@ -158,13 +160,13 @@ def make_gym_environment(
     blue_team_size: int = 1,
     orange_team_size: int = 1,
     auto_reset: bool = True,
-) -> Tuple[RLGym, PhoenixGymController]:
-    """Create an ``RLGym`` environment configured for the Phoenix bot."""
+) -> Tuple[RLGym, WinYour1sGymController]:
+    """Create an ``RLGym`` environment configured for the WinYour1s bot."""
 
-    base_parser = PhoenixDirectActionParser()
+    base_parser = WinYour1sDirectActionParser()
     action_parser = RepeatAction(base_parser, repeats=max(int(tick_skip), 1))
-    obs_builder = PhoenixObsBuilder()
-    reward_fn = PhoenixZeroReward()
+    obs_builder = WinYour1sObsBuilder()
+    reward_fn = WinYour1sZeroReward()
     state_mutator = MutatorSequence(
         FixedTeamSizeMutator(blue_size=blue_team_size, orange_size=orange_team_size),
         KickoffMutator(),
@@ -180,7 +182,7 @@ def make_gym_environment(
         truncation_cond=TimeoutCondition(timeout_seconds=120.0),
     )
 
-    controller = PhoenixGymController(tick_skip=tick_skip)
+    controller = WinYour1sGymController(tick_skip=tick_skip)
     if auto_reset:
         env.reset()
         controller.handle_reset(env.state)
@@ -189,7 +191,7 @@ def make_gym_environment(
 
 
 def run_episode(max_steps: int = 1800, tick_skip: int = 8) -> None:
-    """Run a demonstration episode inside RocketSim using Phoenix heuristics."""
+    """Run a demonstration episode inside RocketSim using WinYour1s heuristics."""
 
     env, controller = make_gym_environment(tick_skip=tick_skip, auto_reset=True)
     try:
@@ -212,8 +214,8 @@ def run_episode(max_steps: int = 1800, tick_skip: int = 8) -> None:
 __all__ = [
     "make_gym_environment",
     "run_episode",
-    "PhoenixGymController",
-    "PhoenixDirectActionParser",
+    "WinYour1sGymController",
+    "WinYour1sDirectActionParser",
 ]
 
 
