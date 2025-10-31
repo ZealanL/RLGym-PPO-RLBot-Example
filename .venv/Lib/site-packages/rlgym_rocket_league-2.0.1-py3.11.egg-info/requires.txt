@@ -1,0 +1,13 @@
+rlgym-api<3,>=2.0.0
+numpy<2,>=1.19
+
+[all]
+rocketsim>=2.1
+rlviser-py==0.6.*
+
+[rlviser]
+rlviser-py==0.6.*
+rocketsim>=2.1
+
+[sim]
+rocketsim>=2.1

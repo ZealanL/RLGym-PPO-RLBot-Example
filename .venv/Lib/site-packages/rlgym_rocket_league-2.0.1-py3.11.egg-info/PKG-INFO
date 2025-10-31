@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: rlgym-rocket-league
+Version: 2.0.1
+Summary: A python API that can be used to treat the game Rocket League as a Gym-like environment for Reinforcement Learning projects.
+Home-page: https://rlgym.org
+Author: Lucas Emery, Matthew Allen and Rolv-Arild Braaten
+Author-email: contact@rlgym.org
+License: Apache 2.0
+Project-URL: Source Code, https://github.com/lucas-emery/rocket-league-gym
+Keywords: rocket-league,gym,reinforcement-learning,rlgym
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: sim
+Provides-Extra: rlviser
+Provides-Extra: all
+License-File: LICENSE
+
+# The Rocket League Gym
+This is a python API that can be used to treat the game [Rocket League](https://www.rocketleague.com) as though it were an
+[Gym](https://gymnasium.farama.org/)-style environment for Reinforcement Learning projects.
+
+
+## Installation
+Install the library via pip:
+```
+pip install rlgym-rocket-league[all]
+```
+
+RLGym is now installed! simply run ```example.py``` from our repo to ensure everything works.
+
+## Usage
+For tutorials and documentation, please visit our [Wiki](https://rlgym.org/).

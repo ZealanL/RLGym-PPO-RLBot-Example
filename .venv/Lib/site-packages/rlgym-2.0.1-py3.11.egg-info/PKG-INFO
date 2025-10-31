@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: rlgym
+Version: 2.0.1
+Summary: A python API with zero dependencies to create fully customizable environments for Reinforcement Learning projects.
+Home-page: https://rlgym.org
+Author: Lucas Emery, Matthew Allen and Rolv-Arild Braaten
+Author-email: contact@rlgym.org
+License: Apache 2.0
+Project-URL: Source Code, https://github.com/lucas-emery/rocket-league-gym
+Keywords: rocket-league,gym,reinforcement-learning,rlgym
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: rl
+Provides-Extra: rl-sim
+Provides-Extra: rl-rlviser
+Provides-Extra: all
+License-File: LICENSE
+
+# The Rocket League Gym
+This is a python API that can be used to treat the game [Rocket League](https://www.rocketleague.com) as though it were an 
+[Gym](https://gymnasium.farama.org/)-style environment for Reinforcement Learning projects. 
+
+
+## Installation
+Install the library via pip:
+```
+pip install rlgym[all]  // Installs every rlgym component
+
+pip install rlgym  // Installs only the api
+
+pip install rlgym[rl]  // Installs all rocket league packages
+
+pip install rlgym[rl-sim]  // Installs only RocketSim rocket league packages
+
+pip install rlgym[rl-rlviser]  // Installs RLViser and RocketSim rocket league packages
+```
+
+### Testing everything works
+RLGym is now installed! simply run ```example.py``` from our repo to ensure everything works.
+
+## Dependency Management
+**DO NOT** specify this package as a dependency, this is an **installation only** package.
+
+You should depend directly on the package you're consuming and its corresponding extras, e.g.
+`rlgym-rocket-league[sim]`, `rlgym-api` or whichever of our libraries your project is using.
+
+## Usage
+For tutorials and documentation, please visit our [Wiki](https://rlgym.org/).
+
+We also provide the base RLGym API in its own [standalone package](https://pypi.org/project/rlgym-api/) with no dependencies.
