@@ -1,0 +1,9 @@
+flatbuffers==1.12
+psutil==5.*
+inputs
+websockets
+dataclasses
+webdriver_manager
+selenium==4.*
+requirements-parser
+docopt

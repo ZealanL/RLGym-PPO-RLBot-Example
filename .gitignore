@@ -3,3 +3,8 @@
 
 # Python cache
 __pycache__/
+
+# Model checkpoints
+*.pt
+*.pth
+checkpoints/

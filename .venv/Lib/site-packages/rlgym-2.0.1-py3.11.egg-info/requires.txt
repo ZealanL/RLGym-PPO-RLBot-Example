@@ -1,0 +1,13 @@
+rlgym-api==2.0.0
+
+[all]
+rlgym-rocket-league[all]==2.0.1
+
+[rl]
+rlgym-rocket-league[all]==2.0.1
+
+[rl-rlviser]
+rlgym-rocket-league[rlviser]==2.0.1
+
+[rl-sim]
+rlgym-rocket-league[sim]==2.0.1

@@ -1,10 +1,15 @@
-# Include everything the framework requires
-# You will automatically get updates for all versions starting with "1.".
+# Runtime dependencies for RLBotGUI and Scratch interface compatibility
 rlbot==1.*
---find-links https://download.pytorch.org/whl/torch_stable.html
-torch==1.9.1+cpu
-rlgym-compat==1.0.2
-numpy
+numpy==1.26.4
+websockets>=12.0
+selenium>=4.24
+webdriver-manager>=4.0.2
 
-# This will cause pip to auto-upgrade and stop scaring people with warning messages
+# RLGym support (RocketSim engine + helpers)
+rlgym==2.0.1
+rlgym-tools==2.3.12
+rlgym-rocket-league[sim]==2.0.1
+gymnasium>=0.29,<1.0
+
+# Quality-of-life tools installed alongside the bot environment
 pip

@@ -5,15 +5,15 @@ from rlbot.utils.structures.game_data_struct import Physics, Vector3, Rotator
 
 class PhysicsObject:
     def __init__(self, position=None, euler_angles=None, linear_velocity=None, angular_velocity=None):
-        self.position: np.ndarray = position if position else np.zeros(3)
+        self.position: np.ndarray = position if position is not None else np.zeros(3)
 
         # ones by default to prevent mathematical errors when converting quat to rot matrix on empty physics state
         self.quaternion: np.ndarray = np.ones(4)
 
-        self.linear_velocity: np.ndarray = linear_velocity if linear_velocity else np.zeros(3)
-        self.angular_velocity: np.ndarray = angular_velocity if angular_velocity else np.zeros(3)
-        self._euler_angles: np.ndarray = euler_angles if euler_angles else np.zeros(3)
-        self._rotation_mtx: np.ndarray = np.zeros((3,3))
+        self.linear_velocity: np.ndarray = linear_velocity if linear_velocity is not None else np.zeros(3)
+        self.angular_velocity: np.ndarray = angular_velocity if angular_velocity is not None else np.zeros(3)
+        self._euler_angles: np.ndarray = euler_angles if euler_angles is not None else np.zeros(3)
+        self._rotation_mtx: np.ndarray = np.zeros((3, 3))
         self._has_computed_rot_mtx = False
 
         self._invert_vec = np.asarray([-1, -1, 1])
@@ -24,17 +24,20 @@ class PhysicsObject:
         self._euler_angles = self._rotator_to_numpy(car_data.rotation)
         self.linear_velocity = self._vector_to_numpy(car_data.velocity)
         self.angular_velocity = self._vector_to_numpy(car_data.angular_velocity)
+        self._has_computed_rot_mtx = False
 
     def decode_ball_data(self, ball_data: Physics):
         self.position = self._vector_to_numpy(ball_data.location)
         self.linear_velocity = self._vector_to_numpy(ball_data.velocity)
         self.angular_velocity = self._vector_to_numpy(ball_data.angular_velocity)
+        self._has_computed_rot_mtx = False
 
     def invert(self, other):
         self.position = other.position * self._invert_vec
         self._euler_angles = other.euler_angles() + self._invert_pyr
         self.linear_velocity = other.linear_velocity * self._invert_vec
         self.angular_velocity = other.angular_velocity * self._invert_vec
+        self._has_computed_rot_mtx = False
 
     # pitch, yaw, roll
     def euler_angles(self) -> np.ndarray:
@@ -66,10 +69,10 @@ class PhysicsObject:
         return self.rotation_mtx()[:, 2]
 
     def _vector_to_numpy(self, vector: Vector3):
-        return np.asarray([vector.x, vector.y, vector.z])
+        return np.asarray([vector.x, vector.y, vector.z], dtype=np.float32)
 
     def _rotator_to_numpy(self, rotator: Rotator):
-        return np.asarray([rotator.pitch, rotator.yaw, rotator.roll])
+        return np.asarray([rotator.pitch, rotator.yaw, rotator.roll], dtype=np.float32)
 
     def _euler_to_rotation(self, pyr: np.ndarray):
         CP = math.cos(pyr[0])
@@ -79,7 +82,7 @@ class PhysicsObject:
         CR = math.cos(pyr[2])
         SR = math.sin(pyr[2])
 
-        theta = np.empty((3, 3))
+        theta = np.empty((3, 3), dtype=np.float32)
 
         # front direction
         theta[0, 0] = CP * CY
